@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,5 +29,6 @@ public class Category {
 
     @ManyToOne
     @Column(nullable = false, unique = true)
+    @JoinColumn(name = "parent_id")
     private Category parentCategory;
 }
