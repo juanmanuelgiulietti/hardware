@@ -1,12 +1,11 @@
 package com.hardware.entity;
 
-import java.util.Date;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,24 +17,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "")
-public class User {
+@Schema(description = "Discount entity representing a product discount")
+public class Discount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_user;
+    private Long id_discount;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private BigDecimal percentage;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private LocalDateTime startTime;
 
     @Column(nullable = false, unique = true)
-    private String password_hash;
+    private LocalDateTime endDate;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    
-    private Date creation_date;
+    @Column(nullable = false, unique = true)
+    private boolean isActive;
 }
