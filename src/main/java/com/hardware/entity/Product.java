@@ -1,7 +1,10 @@
 package com.hardware.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
@@ -9,9 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +28,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_product;
+    private Long id_product;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -46,24 +49,18 @@ public class Product {
     private boolean isActive;
 
     @ManyToOne
-    @Column(nullable = false, unique = true)
-    private int id_brand;
+    @JoinColumn(name = "id_brand", nullable = false, unique = true)
+    private Brand brand;
 
     @ManyToOne
-    @Column(nullable = false, unique = true)
-    private int id_category;
+    @JoinColumn(name = "id_category", nullable = false, unique = true)
+    private Category category;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private Instant updatedAt;
 }
