@@ -5,17 +5,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 @Schema(description = "Category entity representing a hardware category")
 public class Category {
 
@@ -29,6 +26,7 @@ public class Category {
     @Column(nullable = false, unique = true)
     private String slug;
 
+    @ManyToOne
     @Column(nullable = false, unique = true)
-    private int id_parent;
+    private Category parentCategory;
 }
