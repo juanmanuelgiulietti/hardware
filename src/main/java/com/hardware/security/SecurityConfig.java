@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.http.HttpMethod;
+
 @Configuration
 public class SecurityConfig {
 
@@ -16,11 +18,22 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().authenticated()
-            )
-            .formLogin(withDefaults());
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/auth/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/uploads/**")
+                        .permitAll()
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/products/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .formLogin(withDefaults());
 
         return http.build();
     }

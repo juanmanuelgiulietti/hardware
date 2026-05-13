@@ -2,6 +2,7 @@ package com.hardware.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,7 +21,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_category;
+    private Long id_category;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -28,7 +30,6 @@ public class Category {
     private String slug;
 
     @ManyToOne
-    @Column(nullable = false, unique = true)
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "parent_id", nullable = false, unique = true)
     private Category parentCategory;
 }
