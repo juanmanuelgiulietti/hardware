@@ -36,7 +36,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String description;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Column(nullable = false, unique = true)
