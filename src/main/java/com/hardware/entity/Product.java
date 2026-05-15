@@ -2,6 +2,7 @@ package com.hardware.entity;
 
 import java.beans.Transient;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
@@ -80,7 +81,7 @@ public class Product {
                 BigDecimal percentage = discount.getPercentage();
 
                 BigDecimal discountAmount = price.multiply(percentage)
-                        .divide(BigDecimal.valueOf(100));
+                        .divide(BigDecimal.valueOf(100)).setScale(2, RoundingMode.HALF_UP);
 
                 return price.subtract(discountAmount);
             }
