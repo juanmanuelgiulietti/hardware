@@ -1,9 +1,9 @@
-package com.hardware.repository;
+package com.hardware.products.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hardware.entity.Product;
+import com.hardware.products.entity.Product;
 
 
 @Repository

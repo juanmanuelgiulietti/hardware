@@ -1,7 +1,4 @@
-package com.hardware.entity;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+package com.hardware.products.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
@@ -9,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,22 +16,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Discount entity representing a product discount")
-public class Discount {
+@Schema(description = "Category entity representing a hardware category")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_discount;
+    private Long id_category;
 
     @Column(nullable = false, unique = true)
-    private BigDecimal percentage;
+    private String name;
 
     @Column(nullable = false, unique = true)
-    private LocalDateTime startTime;
+    private String slug;
 
-    @Column(nullable = false, unique = true)
-    private LocalDateTime endDate;
-
-    @Column(nullable = false, unique = true)
-    private boolean isActive;
+    @ManyToOne
+    @JoinColumn(name = "parent_id", nullable = false, unique = true)
+    private Category parentCategory;
 }

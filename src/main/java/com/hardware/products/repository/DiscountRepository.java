@@ -1,9 +1,9 @@
-package com.hardware.repository;
+package com.hardware.products.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hardware.entity.Discount;
+import com.hardware.products.entity.Discount;
 
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
