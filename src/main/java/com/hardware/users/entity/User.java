@@ -1,29 +1,43 @@
-package com.hardware.entity;
+package com.hardware.users.entity;
+
+import java.util.Date;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Brand entity representing a hardware brand")
-public class Brand {
+@Schema(description = "User entity representing a user")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_brand;
+    private Long id_user;
 
     @Column(nullable = false, unique = true)
     private String name;
-    
+
     @Column(nullable = false, unique = true)
-    private String slug;
+    private String email;
+
+    @Column(nullable = false, unique = true)
+    private String password_hash;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    
+    private Date creation_date;
 }

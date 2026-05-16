@@ -1,4 +1,4 @@
-package com.hardware.entity;
+package com.hardware.users.entity;
 
 public enum Role {
     CUSTOMER,

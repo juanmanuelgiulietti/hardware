@@ -1,4 +1,4 @@
-package com.hardware.entity;
+package com.hardware.products.entity;
 
 import java.beans.Transient;
 import java.math.BigDecimal;

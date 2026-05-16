@@ -1,11 +1,11 @@
-package com.hardware.repository;
+package com.hardware.users.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.hardware.entity.User;
+import com.hardware.users.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
