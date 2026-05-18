@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -30,6 +31,6 @@ public class Category {
     private String slug;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id", nullable = false, unique = true)
+    @JoinColumn(name = "parent_id")
     private Category parentCategory;
 }
