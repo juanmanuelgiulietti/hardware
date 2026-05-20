@@ -1,6 +1,14 @@
 package com.hardware.products.controller;
 
+import java.util.List;
+
+import org.apache.catalina.connector.Response;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hardware.products.dto.CreateProductRequest;
@@ -11,11 +19,6 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-import org.apache.catalina.connector.Response;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
@@ -32,7 +35,25 @@ public class ProductController {
                 .status(Response.SC_OK)
                 .body(response);
     }
+
+    @GetMapping("/products")
+    public ResponseEntity<List<ProductResponse>> getProducts(@RequestParam (required = false) String name, @RequestParam(required = false) Long id_category) {
+
+        List<ProductResponse> responses;
+
+        if (name != null) {
+            responses = List.of(productService.getProductByNameContainingIgnoreCase(name));
+        } else if (id_category != null) {
+            responses = List.of(productService.getProductByIdCategory(id_category));
+        } else {
+            responses = productService.getAllProducts();
+        }
+        return ResponseEntity
+                .status(Response.SC_OK)
+                .body(responses);
+    }
     
+
     @PostMapping("/products")
     public ResponseEntity<ProductResponse> createProduct(@RequestBody CreateProductRequest request) {
         ProductResponse response = productService.createProduct(request);
