@@ -2,6 +2,7 @@ package com.hardware.users.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @ExceptionHandler(Exception.class)
     @PostMapping("/register")
     public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
         CreateUserResponse response = userService.createUser(request);
