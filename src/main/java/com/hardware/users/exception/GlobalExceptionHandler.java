@@ -1,4 +1,4 @@
-package com.hardware.exception;
+package com.hardware.users.exception;
 
 import java.util.HashMap;
 import java.util.Map;

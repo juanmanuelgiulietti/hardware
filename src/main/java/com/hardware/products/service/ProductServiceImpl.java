@@ -64,4 +64,36 @@ public class ProductServiceImpl implements ProductService {
                 .price(product.getPrice())
                 .build();
     }
+
+    @Override
+    public ProductResponse getProductByNameContainingIgnoreCase(String name) {
+        if (!productRepository.existsProductByName(name)) {
+            throw new IllegalArgumentException("Product name no exists.");
+        }
+
+        Product product = productRepository.findProductByNameContainingIgnoreCase(name);
+        return ProductResponse.builder()
+                .id_product(product.getId_product())
+                .name(product.getName())
+                .brand(product.getBrand())
+                .category(product.getCategory())
+                .price(product.getPrice())
+                .build();
+    }
+
+    @Override
+    public ProductResponse getProductByIdCategory(Long id_category) {
+        Product product = productRepository.findProductById_category(id_category);
+        if (product == null) {
+            throw new IllegalArgumentException("Product category not found.");
+        }
+
+        return ProductResponse.builder()
+                .id_product(product.getId_product())
+                .name(product.getName())
+                .brand(product.getBrand())
+                .category(product.getCategory())
+                .price(product.getPrice())
+                .build();
+    }
 }
