@@ -1,5 +1,7 @@
 package com.hardware.products.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.hardware.products.dto.CreateProductRequest;
@@ -95,5 +97,23 @@ public class ProductServiceImpl implements ProductService {
                 .category(product.getCategory())
                 .price(product.getPrice())
                 .build();
+    }
+
+    @Override
+    public List<ProductResponse> getAllProducts() {
+        if (productRepository.count() == 0) {
+            throw new IllegalArgumentException("No products found.");
+        }
+
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(product -> ProductResponse.builder()
+                        .id_product(product.getId_product())
+                        .name(product.getName())
+                        .brand(product.getBrand())
+                        .category(product.getCategory())
+                        .price(product.getPrice())
+                        .build())
+                .toList();
     }
 }
